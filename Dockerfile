@@ -2,12 +2,16 @@ FROM debian:stretch
 MAINTAINER Sohel <sohelamankhan@gmail.com>
 
 RUN apt update && \
-	apt -y install wget fish vim tmux apt-transport-https lsb-release ca-certificates
+	apt -y install wget fish vim tmux apt-transport-https lsb-release ca-certificates locales
 
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list
 RUN apt update && \
 	apt -y install apache2 libapache2-mod-fcgid libapache2-mod-php5.6 php5.6-fpm php5.6 php5.6-dev php5.6-mcrypt php5.6-mbstring php5.6-mysql php5.6-zip php5.6-gd php5.6-xml php5.6-xdebug
+
+## Locale
+RUN sed -i '/^# en_US.UTF-8 UTF-8$/s/^# //g' /etc/locale.gen
+RUN locale-gen
 
 ## Apache mods
 RUN a2enmod php5.6 rewrite actions fcgid
