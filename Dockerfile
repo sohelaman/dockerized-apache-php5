@@ -34,5 +34,14 @@ ENV APACHE_PID_FILE /var/run/apache2.pid
 ## Expose ports
 EXPOSE 80
 
+## Apache custom conf
+ADD apache2/custom.conf /etc/apache2/conf-available/custom.conf 
+
+## enable custom.conf
+RUN ln -s /etc/apache2/conf-available/custom.conf /etc/apache2/conf-enabled/custom.conf 
+
 ## default vhost
 ADD apache2/vhosts/000-default.conf /etc/apache2/sites-available/000-default.conf
+
+## start apache2
+ENTRYPOINT date && hostname -i && service apache2 start && /bin/bash

@@ -1,21 +1,46 @@
 
-# Dockerized
+# Apache + PHP5 Stack Using Docker
 
-## Build an image
-- Create a folder, ```cd``` into it and download a docker file inside it.
-- Build it (note the image name and the dot at the end),
-```
-# docker build -t <image-name> .
-```
+- Uses Debian Stretch images as base.
+- Default Apache vhost configuration is here: [apache2/vhosts/000-default.conf](apache2/vhosts/000-default.conf)
+- Additional Apache configuration can be put here: [apache2/custom.conf](apache2/custom.conf)
 
-## Run an image
-- Use the image name provided in the previous step to run it,
+
+## Build the image
+- Download the repository, ```cd``` into it. Then run the following command to build the image.
 ```
-# docker run -it <image-name>
+# docker build -t dockerized-apache-php5 .
 ```
 
-- To mount a directory of the host to the docker node, pass the volume info.
-- For example, mount */srv/http* of the host machine as */var/www/html* inside the docker node.
+## Run the image
+- Document root of the image is set to */var/www/html* directory and should not be changed.
+- The following command will mount the */srv/http* directory in the host OS as the document root for the container. Do not forget to put the path of the directory you want to serve insead of */srv/http* directory.
 ```
-# docker run -it -v /srv/http:/var/www/html <image-name>
+# docker run -it -h docker-apache-php5 -v /srv/http:/var/www/html dockerized-apache-php5
 ```
+
+## Multiple sites
+- Same image can be used to serve multiple sites. In this case, multiple containers will run.
+```
+# docker run -it -h dockernode1 -v /srv/http/site1/public_html:/var/www/html dockerized-apache-php5
+# docker run -it -h dockernode2 -v /srv/http/site2/public_html:/var/www/html dockerized-apache-php5
+```
+
+### Notes
+- Docker host IP,
+```
+$ ip -4 addr show docker0 | grep -Po 'inet \K[\d.]+'
+``` 
+- Docker container IP,
+From the host (lists all that are running),
+```
+# docker inspect -f '{{.Id}} - {{.Name}} - {{.NetworkSettings.IPAddress}}' $(docker ps -q)
+```
+From the container,
+```
+$ hostname -i
+```
+- A host file entry pointing the docker container may sometimes come handy. For example, if the docker container IP is *172.17.0.2* then add the following line to the */etc/hosts* file of the host machine.
+```
+172.17.0.2	dockernode
+``` 
