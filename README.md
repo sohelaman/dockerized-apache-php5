@@ -1,7 +1,7 @@
 
 # Apache + PHP5 Stack Using Docker
 
-- Uses Debian Stretch images as base.
+- Uses Debian Stretch image as the base.
 - Default Apache vhost configuration is here: [apache2/vhosts/000-default.conf](apache2/vhosts/000-default.conf)
 - Additional Apache configuration can be put here: [apache2/custom.conf](apache2/custom.conf)
 
@@ -32,6 +32,7 @@
 $ ip -4 addr show docker0 | grep -Po 'inet \K[\d.]+'
 ``` 
 - Docker container IP,
+
 From the host (lists all that are running),
 ```
 # docker inspect -f '{{.Id}} - {{.Name}} - {{.NetworkSettings.IPAddress}}' $(docker ps -q)
@@ -40,7 +41,7 @@ From the container,
 ```
 $ hostname -i
 ```
-- A host file entry pointing the docker container may sometimes come handy. For example, if the docker container IP is *172.17.0.2* then add the following line to the */etc/hosts* file of the host machine.
+- A host file entry pointing to the container may sometimes come handy. For example, if the docker container IP is *172.17.0.2* then add the following line to the */etc/hosts* file of the host machine.
 ```
 172.17.0.2	dockernode
 ``` 
