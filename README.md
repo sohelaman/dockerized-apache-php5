@@ -2,13 +2,14 @@
 # Dockerized
 
 ## Build an image
-- Download a docker file and build it (note the image name),
+- Create a folder, ```cd``` into it and download a docker file inside it.
+- Build it (note the image name and the dot at the end),
 ```
 $ docker build -t <image-name> .
 ```
 
 ## Run an image
-- Use the image name provided in the provided in the previous step to run it,
+- Use the image name provided in the previous step to run it,
 ```
 $ docker run -it <image-name>
 ```
