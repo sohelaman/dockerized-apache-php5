@@ -1,5 +1,5 @@
 FROM debian:stretch
-MAINTAINER Sohel <sohelamankhan@gmail.com>
+MAINTAINER Sohel <sohel@example.com>
 
 RUN apt update && \
 	apt -y install wget fish vim tmux apt-transport-https lsb-release ca-certificates locales
