@@ -7,7 +7,8 @@ RUN apt update && \
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list
 RUN apt update && \
-	apt -y install apache2 libapache2-mod-fcgid libapache2-mod-php5.6 php5.6-fpm php5.6 php5.6-dev php5.6-mcrypt php5.6-mbstring php5.6-mysql php5.6-zip php5.6-gd php5.6-xml php5.6-xdebug
+	apt -y install apache2 libapache2-mod-fcgid libapache2-mod-php5.6 \
+	php5.6-fpm php5.6 php5.6-mcrypt php5.6-mbstring php5.6-mysql php5.6-zip php5.6-gd php5.6-xml php5.6-xdebug
 
 ## Locale
 RUN sed -i '/^# en_US.UTF-8 UTF-8$/s/^# //g' /etc/locale.gen
