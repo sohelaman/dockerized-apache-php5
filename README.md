@@ -1,6 +1,10 @@
 
 # Apache + PHP5 Stack Using Docker
 
+## Deprecated!!!
+  - Not maintained anymore. Please see more advanced and newer stack [here](https://github.com/sohelaman/dockerized).
+
+## Info
 - Uses Debian Stretch image as the base.
 - Default Apache vhost configuration is here: [apache2/vhosts/000-default.conf](apache2/vhosts/000-default.conf)
 - Additional Apache configuration can be put here: [apache2/custom.conf](apache2/custom.conf)
